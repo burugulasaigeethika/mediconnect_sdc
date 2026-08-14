@@ -1,0 +1,74 @@
+.recent-searches {
+    margin-top: 10px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    padding: 15px;
+}
+
+.recent-searches-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.recent-searches-header h4 {
+    margin: 0;
+    font-size: 16px;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.clock-icon {
+    font-size: 18px;
+}
+
+.clear-button {
+    background: none;
+    border: none;
+    color: #007bff;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+.clear-button:hover {
+    background-color: #e9ecef;
+    text-decoration: underline;
+}
+
+.recent-searches-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.recent-search-item {
+    padding: 8px 12px;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.recent-search-item:last-child {
+    border-bottom: none;
+}
+
+.recent-search-item:hover {
+    background-color: #e9ecef;
+}
+
+.recent-searches-loading,
+.recent-searches-error {
+    padding: 15px;
+    text-align: center;
+    color: #666;
+}
+
+.recent-searches-error {
+    color: #dc3545;
+}

@@ -1,0 +1,211 @@
+.medical-history-container {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.medical-history-header h2 {
+    font-size: 1.8rem;
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+}
+
+.tab-navigation {
+    display: flex;
+    border-bottom: 2px solid #e0e0e0;
+    margin-bottom: 2rem;
+    gap: 0;
+}
+
+.tab-btn {
+    padding: 1rem 2rem;
+    border: none;
+    background: transparent;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #5a6c7d;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s ease;
+    border-bottom: 3px solid transparent;
+}
+
+.tab-btn:hover {
+    color: #e53e3e;
+}
+
+.tab-btn.active {
+    color: #e53e3e;
+    border-bottom-color: #e53e3e;
+}
+
+.tab-content {
+    min-height: 400px;
+}
+
+/* Empty State */
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 2rem;
+    text-align: center;
+}
+
+.empty-icon {
+    margin-bottom: 1.5rem;
+}
+
+.empty-title {
+    font-size: 1.25rem;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+}
+
+.empty-subtitle {
+    color: #5a6c7d;
+    margin-bottom: 2rem;
+}
+
+.start-ordering-btn {
+    background: #e53e3e;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    padding: 0.75rem 2.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(229, 62, 62, 0.3);
+}
+
+.start-ordering-btn:hover {
+    background: #c53030;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(229, 62, 62, 0.4);
+}
+
+.start-ordering-btn:active {
+    transform: translateY(0);
+}
+
+/* Records List */
+.records-list {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.record-card {
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.record-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-color: #3498db;
+}
+
+.record-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.record-header h4 {
+    margin: 0;
+    color: #2c3e50;
+    font-size: 1.1rem;
+}
+
+.status-badge {
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.status-pending-review {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.status-approved-awaiting-payment {
+    background: #d1ecf1;
+    color: #0c5460;
+}
+
+.status-paid {
+    background: #d4edda;
+    color: #155724;
+}
+
+.status-processing {
+    background: #cce5ff;
+    color: #004085;
+}
+
+.status-ready-for-dispatch {
+    background: #e7f3ff;
+    color: #005a9e;
+}
+
+.status-completed {
+    background: #d4edda;
+    color: #155724;
+}
+
+.record-details {
+    margin-bottom: 1rem;
+}
+
+.record-details p {
+    margin: 0.5rem 0;
+    color: #5a6c7d;
+    font-size: 0.95rem;
+}
+
+.record-details strong {
+    color: #2c3e50;
+}
+
+.medicines-list {
+    background: #f8f9fa;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-top: 1rem;
+}
+
+.medicines-list strong {
+    color: #2c3e50;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.medicines-list ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.medicines-list li {
+    padding: 0.4rem 0;
+    color: #5a6c7d;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.medicines-list li:last-child {
+    border-bottom: none;
+}
+
+.loading-state {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: #5a6c7d;
+    font-size: 1.1rem;
+}

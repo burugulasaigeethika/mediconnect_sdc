@@ -1,0 +1,62 @@
+.recent-orders-widget {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.widget-header h3 {
+    margin: 0 0 15px 0;
+    color: #333;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.recent-orders-content {
+    min-height: 100px;
+}
+
+.recent-orders-content .recent-searches {
+    margin-top: 0;
+}
+
+.recent-orders-content .recent-searches-header {
+    display: none;
+}
+
+.recent-orders-content .recent-searches-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.recent-orders-content .recent-search-item {
+    padding: 12px 15px;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.recent-orders-content .recent-search-item:last-child {
+    border-bottom: none;
+}
+
+.recent-orders-content .recent-search-item:hover {
+    background-color: #f8f9fa;
+}
+
+.recent-orders-content .recent-search-item::before {
+    content: "📋";
+}
+
+@media (max-width: 768px) {
+    .recent-orders-widget {
+        padding: 15px;
+    }
+}

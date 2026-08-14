@@ -1,0 +1,181 @@
+.doctor-schedule-page {
+    /* Padding handled by dashboard-main */
+}
+
+.content-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.content-header h1 {
+    font-size: 1.8rem;
+    color: #1e293b;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.subtitle {
+    color: #64748b;
+    font-size: 0.95rem;
+    margin: 0;
+}
+
+.schedule-container {
+    background: white;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.working-hours-section h2 {
+    font-size: 1.5rem;
+    color: #1e293b;
+    font-weight: 700;
+    margin-bottom: 30px;
+}
+
+.schedule-rows {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.schedule-row {
+    display: grid;
+    grid-template-columns: 140px 1fr auto;
+    align-items: center;
+    gap: 30px;
+    padding: 15px 0;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.schedule-row:last-child {
+    border-bottom: none;
+}
+
+.day-name {
+    font-size: 1rem;
+    color: #334155;
+    font-weight: 500;
+}
+
+.time-inputs {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.time-input-group {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.time-input {
+    padding: 10px 40px 10px 16px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    color: #334155;
+    background: #f8fafc;
+    transition: all 0.2s;
+    min-width: 140px;
+}
+
+.time-input:focus {
+    outline: none;
+    border-color: #5c87f2;
+    background: white;
+    box-shadow: 0 0 0 3px rgba(92, 135, 242, 0.1);
+}
+
+.time-input:disabled {
+    background: #f1f5f9;
+    color: #94a3b8;
+    cursor: not-allowed;
+}
+
+.time-icon {
+    position: absolute;
+    right: 12px;
+    font-size: 1.1rem;
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+.time-separator {
+    color: #64748b;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.availability-toggle {
+    display: flex;
+    align-items: center;
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+    gap: 10px;
+}
+
+.checkbox-container input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    accent-color: #5c87f2;
+}
+
+.checkbox-label {
+    font-size: 0.9rem;
+    color: #475569;
+    font-weight: 500;
+}
+
+.btn {
+    padding: 10px 24px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+}
+
+.btn-primary {
+    background: #5c87f2;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #4a75e0;
+    box-shadow: 0 4px 8px rgba(92, 135, 242, 0.3);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .schedule-row {
+        grid-template-columns: 1fr;
+        gap: 15px;
+        padding: 20px 0;
+    }
+
+    .time-inputs {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+
+    .time-separator {
+        text-align: center;
+    }
+
+    .availability-toggle {
+        justify-content: flex-start;
+    }
+}
