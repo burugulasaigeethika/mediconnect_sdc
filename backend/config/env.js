@@ -5,6 +5,11 @@
 
 require('dotenv').config();
 
+// Support both MONGODB_URI and MONGO_URI environment variables
+if (process.env.MONGO_URI && !process.env.MONGODB_URI) {
+    process.env.MONGODB_URI = process.env.MONGO_URI;
+}
+
 const requiredEnvVars = [
     'MONGODB_URI',
     'JWT_SECRET'
@@ -24,7 +29,7 @@ const validateEnv = () => {
 
     if (missing.length > 0) {
         console.error('❌ Missing required environment variables:', missing.join(', '));
-        console.error('Please check your .env file');
+        console.error('Please configure these required variables in your Render environment settings.');
         process.exit(1);
     }
 
