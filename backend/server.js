@@ -123,7 +123,13 @@ setTimeout(() => {
   // Create legacy indices after a delay to ensure connection
   setTimeout(createIndices, 5000);
 }, 1000);
-
+// Root route - Render/browser test
+app.get('/', (req, res) => {
+  res.json({
+    status: 'ok',
+    message: 'MediConnect API is running successfully 🚀'
+  });
+});
 // Health check endpoint
 app.get('/api/health', (req, res) => {
   res.json({
