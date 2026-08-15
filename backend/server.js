@@ -72,6 +72,28 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
+// Root route - Render/browser test (Placed early to bypass rate limiters and sanitization)
+app.get('/', (req, res) => {
+  res.json({
+    status: 'ok',
+    message: 'MediConnect API is running successfully 🚀'
+  });
+});
+
+// Health check endpoint
+app.get('/api/health', (req, res) => {
+  res.json({
+    status: 'ok',
+    message: 'MediConnect API is running',
+    environment: config.nodeEnv,
+    features: {
+      email: config.features.emailEnabled,
+      payment: config.features.paymentEnabled,
+      redis: isRedisConnected()
+    }
+  });
+});
+
 // Request logging (in development)
 if (config.nodeEnv === 'development') {
   app.use(requestLogger);
@@ -123,26 +145,7 @@ setTimeout(() => {
   // Create legacy indices after a delay to ensure connection
   setTimeout(createIndices, 5000);
 }, 1000);
-// Root route - Render/browser test
-app.get('/', (req, res) => {
-  res.json({
-    status: 'ok',
-    message: 'MediConnect API is running successfully 🚀'
-  });
-});
-// Health check endpoint
-app.get('/api/health', (req, res) => {
-  res.json({
-    status: 'ok',
-    message: 'MediConnect API is running',
-    environment: config.nodeEnv,
-    features: {
-      email: config.features.emailEnabled,
-      payment: config.features.paymentEnabled,
-      redis: isRedisConnected()
-    }
-  });
-});
+// API Routes placeholder
 
 // API Routes
 app.use('/api/auth', require('./routes/authRoutes'));
