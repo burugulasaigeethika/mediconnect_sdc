@@ -89,6 +89,30 @@ app.get('/api/health', (req, res) => {
   });
 });
 
+// Diagnostics endpoint
+app.get('/api/diagnostics', (req, res) => {
+  const dbState = mongoose.connection.readyState;
+  const dbStatus = {
+    0: 'disconnected',
+    1: 'connected',
+    2: 'connecting',
+    3: 'disconnecting'
+  }[dbState] || 'unknown';
+
+  res.json({
+    status: 'ok',
+    environment: config.nodeEnv,
+    database: {
+      status: dbStatus,
+      name: mongoose.connection.name
+    },
+    redis: {
+      connected: isRedisConnected()
+    },
+    allowedOrigins: allowedOrigins
+  });
+});
+
 // Request logging (in development)
 if (config.nodeEnv === 'development') {
   app.use(requestLogger);
