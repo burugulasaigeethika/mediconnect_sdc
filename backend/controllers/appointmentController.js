@@ -72,9 +72,10 @@ exports.sendPrescription = async (req, res) => {
         // If using local storage, the URL will be relative, so we need to make it absolute
         let prescriptionUrl = fileData.url;
         if (!prescriptionUrl.startsWith('http')) {
-            // Relative URL - construct absolute URL
-            const { config } = require('../config/env');
-            prescriptionUrl = `${config.backendUrl || 'http://localhost:5000'}${fileData.url}`;
+            // Relative URL - construct absolute URL dynamically from request host
+            const host = req.get('host');
+            const protocol = req.protocol;
+            prescriptionUrl = `${protocol}://${host}${fileData.url}`;
         }
 
         console.log('Sending email to patient:', patientEmail);
