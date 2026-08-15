@@ -90,27 +90,54 @@ app.get('/api/health', (req, res) => {
 });
 
 // Diagnostics endpoint
-app.get('/api/diagnostics', (req, res) => {
-  const dbState = mongoose.connection.readyState;
-  const dbStatus = {
-    0: 'disconnected',
-    1: 'connected',
-    2: 'connecting',
-    3: 'disconnecting'
-  }[dbState] || 'unknown';
+app.get('/api/diagnostics', async (req, res) => {
+  try {
+    const dbState = mongoose.connection.readyState;
+    const dbStatus = {
+      0: 'disconnected',
+      1: 'connected',
+      2: 'connecting',
+      3: 'disconnecting'
+    }[dbState] || 'unknown';
 
-  res.json({
-    status: 'ok',
-    environment: config.nodeEnv,
-    database: {
-      status: dbStatus,
-      name: mongoose.connection.name
-    },
-    redis: {
-      connected: isRedisConnected()
-    },
-    allowedOrigins: allowedOrigins
-  });
+    let userStats = { count: 0, roles: {} };
+    if (dbState === 1) {
+      const User = mongoose.model('User');
+      const count = await User.countDocuments();
+      const patients = await User.countDocuments({ role: 'patient' });
+      const doctors = await User.countDocuments({ role: 'doctor' });
+      const pharmacists = await User.countDocuments({ role: 'pharmacist' });
+      const admins = await User.countDocuments({ role: 'admin' });
+      
+      const latestUser = await User.findOne().sort({ createdAt: -1 }).select('email role createdAt');
+
+      userStats = {
+        count,
+        roles: { patients, doctors, pharmacists, admins },
+        latest: latestUser ? {
+          email: latestUser.email,
+          role: latestUser.role,
+          createdAt: latestUser.createdAt
+        } : null
+      };
+    }
+
+    res.json({
+      status: 'ok',
+      environment: config.nodeEnv,
+      database: {
+        status: dbStatus,
+        name: mongoose.connection.name,
+        stats: userStats
+      },
+      redis: {
+        connected: isRedisConnected()
+      },
+      allowedOrigins: allowedOrigins
+    });
+  } catch (error) {
+    res.status(500).json({ status: 'error', error: error.message });
+  }
 });
 
 // Request logging (in development)
