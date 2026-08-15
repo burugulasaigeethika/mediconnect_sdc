@@ -13,8 +13,9 @@ export const SocketProvider = ({ children }) => {
     const { user } = useAuth();
 
     useEffect(() => {
-        // Initialize socket connection
-        const newSocket = io('http://localhost:5000');
+        // Initialize socket connection dynamically
+        const socketUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+        const newSocket = io(socketUrl);
         setSocket(newSocket);
 
         return () => newSocket.close();

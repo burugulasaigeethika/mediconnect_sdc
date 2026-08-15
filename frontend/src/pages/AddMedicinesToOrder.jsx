@@ -214,9 +214,10 @@ const AddMedicinesToOrder = ({ orderId: propOrderId, setActiveTab }) => {
                                         if (order.prescriptionFile.startsWith('http') || order.prescriptionFile.startsWith('data:')) {
                                             return order.prescriptionFile;
                                         }
-                                        // Prepend backend URL for local uploads
+                                        // Prepend backend URL dynamically for local uploads
+                                        const backendUrl = (import.meta.env.VITE_API_URL || 'http://localhost:5000').replace(/\/+$/, '');
                                         const cleanPath = order.prescriptionFile.replace(/^\/+/, '');
-                                        return `http://localhost:5000/${cleanPath}`;
+                                        return `${backendUrl}/${cleanPath}`;
                                     })()}
                                     alt="Prescription"
                                     onError={(e) => {
@@ -238,8 +239,9 @@ const AddMedicinesToOrder = ({ orderId: propOrderId, setActiveTab }) => {
                                     if (order.prescriptionFile.startsWith('http') || order.prescriptionFile.startsWith('data:')) {
                                         return order.prescriptionFile;
                                     }
+                                    const backendUrl = (import.meta.env.VITE_API_URL || 'http://localhost:5000').replace(/\/+$/, '');
                                     const cleanPath = order.prescriptionFile.replace(/^\/+/, '');
-                                    return `http://localhost:5000/${cleanPath}`;
+                                    return `${backendUrl}/${cleanPath}`;
                                 })()}
                             </p>
                         </>
