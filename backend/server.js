@@ -82,15 +82,9 @@ app.get('/', (req, res) => {
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
-  res.json({
+  res.status(200).json({
     status: 'ok',
-    message: 'MediConnect API is running',
-    environment: config.nodeEnv,
-    features: {
-      email: config.features.emailEnabled,
-      payment: config.features.paymentEnabled,
-      redis: isRedisConnected()
-    }
+    message: 'MediConnect API is healthy'
   });
 });
 
