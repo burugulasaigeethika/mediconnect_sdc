@@ -2,6 +2,7 @@ const Redis = require('ioredis');
 const { config } = require('./env');
 
 let redisClient = null;
+let lastRedisError = null;
 
 /**
  * Initialize Redis client with configuration
@@ -63,10 +64,12 @@ const initRedisClient = () => {
 
         redisClient.on('ready', () => {
             console.log('✅ Redis connected successfully');
+            lastRedisError = null;
         });
 
         redisClient.on('error', (err) => {
             console.error('❌ Redis error:', err.message);
+            lastRedisError = err.message;
         });
 
         redisClient.on('close', () => {
@@ -121,9 +124,17 @@ const isRedisConnected = () => {
     return redisClient && redisClient.status === 'ready';
 };
 
+/**
+ * Get the last recorded Redis error message
+ */
+const getLastRedisError = () => {
+    return lastRedisError;
+};
+
 module.exports = {
     initRedisClient,
     getRedisClient,
     closeRedisConnection,
-    isRedisConnected
+    isRedisConnected,
+    getLastRedisError
 };

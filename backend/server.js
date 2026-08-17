@@ -11,7 +11,7 @@ const { config, validateEnv } = require('./config/env');
 validateEnv();
 
 // Redis client
-const { initRedisClient, closeRedisConnection, isRedisConnected } = require('./config/redisClient');
+const { initRedisClient, closeRedisConnection, isRedisConnected, getLastRedisError } = require('./config/redisClient');
 const { connectToQueue } = require('./services/queueService');
 const { connectToElastic, createIndices } = require('./services/searchService');
 
@@ -132,7 +132,8 @@ app.get('/api/diagnostics', async (req, res) => {
         stats: userStats
       },
       redis: {
-        connected: isRedisConnected()
+        connected: isRedisConnected(),
+        lastError: getLastRedisError()
       },
       allowedOrigins: allowedOrigins
     });
