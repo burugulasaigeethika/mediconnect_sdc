@@ -103,9 +103,10 @@ app.get('/api/diagnostics', async (req, res) => {
     let userStats = { count: 0, roles: {} };
     if (dbState === 1) {
       const User = mongoose.model('User');
+      const Doctor = mongoose.model('Doctor');
       const count = await User.countDocuments();
       const patients = await User.countDocuments({ role: 'patient' });
-      const doctors = await User.countDocuments({ role: 'doctor' });
+      const doctors = await Doctor.countDocuments();
       const pharmacists = await User.countDocuments({ role: 'pharmacist' });
       const admins = await User.countDocuments({ role: 'admin' });
       
