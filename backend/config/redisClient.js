@@ -33,13 +33,27 @@ const initRedisClient = () => {
             redisConfig.password = process.env.REDIS_PASSWORD;
         }
 
-        // Add TLS if enabled
-        if (process.env.REDIS_TLS === 'true') {
+        // Add TLS if enabled or if connection string starts with rediss://
+        if (process.env.REDIS_TLS === 'true' || redisUrl.startsWith('rediss://')) {
             redisConfig.tls = {
                 rejectUnauthorized: false
             };
         }
 
+        // Helper to mask password in Redis URL for safe logging
+        const maskRedisUrl = (url) => {
+            try {
+                const parsed = new URL(url);
+                if (parsed.password) {
+                    parsed.password = '****';
+                }
+                return parsed.toString();
+            } catch (e) {
+                return url.replace(/:[^:@\s]+@/, ':****@');
+            }
+        };
+
+        console.log(`🔌 Attempting to connect to Redis at ${maskRedisUrl(redisUrl)}`);
         redisClient = new Redis(redisUrl, redisConfig);
 
         // Event handlers
