@@ -28,8 +28,8 @@ const initRedisClient = () => {
             commandTimeout: 5000
         };
 
-        // Add password if provided
-        if (process.env.REDIS_PASSWORD) {
+        // Add password if provided and not already specified in the URL
+        if (process.env.REDIS_PASSWORD && !redisUrl.includes('@')) {
             redisConfig.password = process.env.REDIS_PASSWORD;
         }
 
