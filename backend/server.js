@@ -123,6 +123,25 @@ app.get('/api/diagnostics', async (req, res) => {
       };
     }
 
+    const { createTransporter } = require('./services/emailService');
+    const transporter = createTransporter();
+    let emailStatus = 'disabled';
+    let emailError = null;
+
+    if (transporter) {
+      try {
+        const timeout = new Promise((_, reject) => {
+          setTimeout(() => reject(new Error('SMTP Verification timeout')), 4000);
+        });
+        const verification = transporter.verify();
+        await Promise.race([verification, timeout]);
+        emailStatus = 'verified';
+      } catch (err) {
+        emailStatus = 'failed';
+        emailError = err.message;
+      }
+    }
+
     res.json({
       status: 'ok',
       environment: config.nodeEnv,
@@ -134,6 +153,13 @@ app.get('/api/diagnostics', async (req, res) => {
       redis: {
         connected: isRedisConnected(),
         lastError: getLastRedisError()
+      },
+      email: {
+        status: emailStatus,
+        error: emailError,
+        configured: !!(config.email.host && config.email.user && config.email.pass),
+        host: config.email.host,
+        userMasked: config.email.user ? `${config.email.user.substring(0, 3)}***@${config.email.user.split('@')[1]}` : null
       },
       allowedOrigins: allowedOrigins
     });
