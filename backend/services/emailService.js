@@ -18,13 +18,17 @@ const createTransporter = () => {
 
     // Use SMTP configuration
     if (config.email.host && config.email.user && config.email.pass) {
+        const port = parseInt(config.email.port);
         return nodemailer.createTransport({
             host: config.email.host,
-            port: config.email.port,
-            secure: false, // true for 465, false for other ports
+            port: port,
+            secure: port === 465, // true for 465, false for other ports
             auth: {
                 user: config.email.user,
                 pass: config.email.pass
+            },
+            tls: {
+                rejectUnauthorized: false
             },
             // Add connection timeout
             connectionTimeout: 10000,
